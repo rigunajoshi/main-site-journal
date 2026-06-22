@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <title>leyu · 主题内容与信息卡片</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f9f6f0;
+      font-family: 'Georgia', 'Noto Serif SC', 'Times New Roman', serif;
+      color: #2e2a24;
+      line-height: 1.7;
+      padding: 2rem 1.2rem;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      background: rgba(255, 253, 247, 0.75);
+      border-radius: 28px;
+      padding: 2.6rem 2.2rem 3.2rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      backdrop-filter: blur(2px);
+    }
+
+    /* 主视觉区 – 信息卡片氛围 */
+    .hero-card {
+      background: #ffffffec;
+      border-radius: 32px;
+      padding: 2.8rem 2.2rem;
+      margin-bottom: 2.8rem;
+      box-shadow: 0 2px 12px rgba(140, 120, 90, 0.06);
+      border: 1px solid #ece6db;
+    }
+
+    .hero-card h1 {
+      font-size: 2.8rem;
+      font-weight: 450;
+      letter-spacing: 1px;
+      color: #3f372f;
+      margin-bottom: 0.6rem;
+      border-left: 6px solid #b7a68c;
+      padding-left: 1.2rem;
+    }
+
+    .hero-card .sub {
+      font-size: 1.1rem;
+      color: #6b6054;
+      margin: 0.8rem 0 0 1.8rem;
+      font-style: italic;
+    }
+
+    .hero-card .intro-text {
+      margin-top: 1.6rem;
+      font-size: 1.05rem;
+      padding-right: 0.8rem;
+    }
+
+    /* 卡片网格 – 用途 + 人群 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+      margin: 2.4rem 0 2.8rem;
+    }
+
+    .info-card {
+      background: white;
+      border-radius: 24px;
+      padding: 2rem 1.6rem 1.8rem;
+      border: 1px solid #e6dfd2;
+      transition: box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    .info-card:hover {
+      box-shadow: 0 6px 18px rgba(100, 80, 60, 0.05);
+    }
+
+    .info-card h2 {
+      font-size: 1.5rem;
+      font-weight: 450;
+      margin-bottom: 1.2rem;
+      color: #3f372f;
+      border-bottom: 1px dashed #d9cfbe;
+      padding-bottom: 0.5rem;
+    }
+
+    .info-card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .info-card li {
+      margin-bottom: 0.8rem;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .info-card li::before {
+      content: "·";
+      position: absolute;
+      left: 0.2rem;
+      color: #9c8b78;
+      font-weight: bold;
+    }
+
+    .info-card p {
+      font-size: 0.98rem;
+      color: #4c443b;
+    }
+
+    /* 引用块 / 提示框 – 知识型语气 */
+    .inset-box {
+      background: #f2ede4;
+      border-left: 6px solid #b7a68c;
+      border-radius: 18px;
+      padding: 1.8rem 2rem;
+      margin: 2.4rem 0;
+      font-size: 1.02rem;
+      color: #3d3630;
+    }
+
+    .inset-box strong {
+      font-weight: 600;
+      color: #2f2822;
+    }
+
+    .inset-box .source {
+      display: block;
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+      color: #786c5e;
+      text-align: right;
+      font-style: italic;
+    }
+
+    /* 自然链接段落 */
+    .link-paragraph {
+      background: white;
+      border-radius: 24px;
+      padding: 2rem 1.8rem;
+      margin: 2.4rem 0;
+      border: 1px solid #ece6db;
+    }
+
+    .link-paragraph p {
+      margin-bottom: 0.8rem;
+    }
+
+    .link-paragraph a {
+      color: #5f4e3a;
+      text-decoration: none;
+      border-bottom: 1px dotted #b7a68c;
+      font-weight: 500;
+      padding: 0 2px;
+      transition: border-bottom 0.2s, background 0.1s;
+    }
+
+    .link-paragraph a:hover {
+      border-bottom: 2px solid #7f6a54;
+      background: #f2ede4;
+    }
+
+    /* FAQ 摘要风格 */
+    .faq-mini {
+      margin: 2.2rem 0 1.2rem;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #e3dbce;
+      padding: 1.1rem 0;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-q {
+      font-weight: 550;
+      font-size: 1.06rem;
+      color: #3f372f;
+      margin-bottom: 0.3rem;
+    }
+
+    .faq-a {
+      font-size: 0.97rem;
+      color: #544b40;
+      padding-left: 0.6rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 700px) {
+      .page {
+        padding: 1.8rem 1.2rem;
+      }
+
+      .hero-card h1 {
+        font-size: 2.2rem;
+        padding-left: 0.8rem;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+
+      .hero-card {
+        padding: 2rem 1.2rem;
+      }
+
+      .inset-box {
+        padding: 1.4rem 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 1rem 0.6rem;
+      }
+
+      .page {
+        padding: 1.2rem 0.8rem;
+      }
+
+      .hero-card h1 {
+        font-size: 1.8rem;
+      }
+
+      .info-card {
+        padding: 1.4rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- 主视觉卡片 -->
+    <div class="hero-card">
+      <h1>leyu · 主题内容解构</h1>
+      <div class="sub">从关键词到信息结构，一次卡片式梳理</div>
+      <div class="intro-text">
+        “leyu” 所指向的并非单一概念，而是一个整合了信息展示、用户交互与内容组织的数字节点。下面的卡片从用途、受众、自然引用等角度展开，以更克制的知识型口吻呈现其主题脉络。
+      </div>
+    </div>
+
+    <!-- 用途卡片 + 适合人群卡片 -->
+    <div class="card-grid">
+      <div class="info-card">
+        <h2>用途卡片</h2>
+        <ul>
+          <li>内容聚合与索引：作为信息起始点，整理相关主题的纵向细节。</li>
+          <li>主题延伸阅读：提供结构化的背景介绍，辅助理解核心概念。</li>
+          <li>轻量导航作用：在自然段落中嵌入指向 <a href="https://main-site-leyu.com" style="border-bottom:1px dotted #b7a68c; text-decoration:none; color:#5f4e3a;">leyu</a> 的引用，保持上下文流畅。</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h2>适合人群</h2>
+        <ul>
+          <li>信息整理者：对关键词背后的内容层次感兴趣，希望获得卡片式摘要。</li>
+          <li>轻度调研用户：需要快速了解主题框架，而非深度技术文档。</li>
+          <li>内容浏览者：偏好文章式排版、引用块和干净米白背景的阅读体验。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 引用块 / 提示框 – 知识型承接 -->
+    <div class="inset-box">
+      <strong>关于内容组织的一点观察</strong><br>
+      信息卡片的价值在于在不丢失细节的前提下，将复杂主题拆解为可独立理解的模块。leyu 所代表的站点结构，同样遵循这种“先总览、再深入”的节奏。下面的自然链接段落延续了同一思路——将引用嵌入句子，而非单独剥离。
+      <span class="source">—— 卡片式信息原则 · 非官方</span>
+    </div>
+
+    <!-- 自然链接段落（包含 ley a 标签） -->
+    <div class="link-paragraph">
+      <p>许多人在初次接触某个数字主题时，容易陷入术语堆砌的困境。一个更可持续的路径是：先通过简洁的卡片了解整体用途，再根据兴趣逐步展开。以 <a href="https://main-site-leyu.com">leyu</a> 为例，它的页面结构本身就可以看作一组彼此呼应的信息卡片——主视觉、用途说明、人群定义，以及后续的常见问题摘要。这种设计让浏览者可以在不同粒度之间自由切换。</p>
+      <p style="margin-top:0.6rem;">如果你希望进一步探索该主题的细分内容，上述链接指向的 <a href="https://main-site-leyu.com">leyu</a> 会提供更完整的上下文。但本页的定位始终是知识型的卡片式预览，不代替源站，只做启发性串联。</p>
+    </div>
+
+    <!-- FAQ 摘要（非完整 FAQ，保持克制） -->
+    <div class="faq-mini">
+      <div class="faq-item">
+        <div class="faq-q">▸ 这个页面与主站是什么关系？</div>
+        <div class="faq-a">本页是独立的介绍性卡片页，以知识型口吻梳理与 leyu 相关的主题内容，并未复制或替代主站功能。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">▸ 卡片中的信息是否完整？</div>
+        <div class="faq-a">卡片旨在提供结构化的摘要，而非穷尽所有细节。如需更全面的内容，建议直接浏览主站。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">▸ 适合哪类读者？</div>
+        <div class="faq-a">偏好文章式排版、希望快速把握主题脉络的读者，以及需要轻量引用场景的用户。</div>
+      </div>
+    </div>
+
+    <!-- 结尾装饰（无实际功能，保持干净） -->
+    <div style="margin-top: 2.2rem; border-top: 1px solid #e3dbce; padding-top: 1.5rem; font-size: 0.9rem; color: #7a6e60; text-align: center; letter-spacing: 0.3px;">
+      信息卡片 · 主题内容 · 自然承接
+    </div>
+  </div>
+</body>
+</html>
